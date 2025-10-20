@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
     {
         if (gameManager.state == GameManager.GameState.GAMEPLAY) 
         {
+            /*
             if (Input.GetKeyDown(KeyCode.E))
             {
                 AddItem("i tem");
@@ -44,6 +45,17 @@ public class Inventory : MonoBehaviour
             {
                 RemoveItem("i tem");
             }
+            */
+
+            Items collisiomItem = gameObject.GetComponent<Items>();
+
+            if (collisiomItem != null)
+            {
+                items.Add(collisiomItem.name);
+                Destroy(collisiomItem.gameObject);
+            }
+
+
         }
 
     }
