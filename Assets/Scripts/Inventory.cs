@@ -46,17 +46,6 @@ public class Inventory : MonoBehaviour
                 RemoveItem("i tem");
             }
             */
-
-            Items collisiomItem = gameObject.GetComponent<Items>();
-
-            if (collisiomItem != null)
-            {
-                items.Add(collisiomItem.name);
-                Destroy(collisiomItem.gameObject);
-            }
-
-
         }
-
     }
 }

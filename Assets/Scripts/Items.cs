@@ -7,8 +7,10 @@ public class Items : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            Debug.Log("collision");
-            gameObject.AddComponent<Items>();
+            Inventory inventory = collider.GetComponent<Inventory>();
+            inventory.AddItem(gameObject.name);
+            GetComponent<Collider>().enabled = false;
+            Destroy(gameObject);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
