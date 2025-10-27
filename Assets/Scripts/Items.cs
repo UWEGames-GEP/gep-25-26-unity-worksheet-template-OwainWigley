@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ public class Items : MonoBehaviour
         {
             Inventory inventory = collider.GetComponent<Inventory>();
             inventory.AddItem(gameObject.name);
+            //play sound component attached to object
             GetComponent<Collider>().enabled = false;
             Destroy(gameObject);
+            
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,6 +25,6 @@ public class Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(0, 25 * Time.deltaTime, 0, Space.Self);
     }
 }

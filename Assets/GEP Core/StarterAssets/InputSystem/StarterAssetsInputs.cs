@@ -53,7 +53,11 @@ namespace StarterAssets
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			look = newLookDirection;
+			if (Time.timeScale != 0.0f) 
+			{
+                look = newLookDirection;
+            }
+			//look = newLookDirection;
 		}
 
 		public void JumpInput(bool newJumpState)
