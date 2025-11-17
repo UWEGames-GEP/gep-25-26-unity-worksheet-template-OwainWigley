@@ -13,25 +13,24 @@ public class GameManager : MonoBehaviour
         state = GameState.GAMEPLAY;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPause() 
     {
         if (state == GameState.GAMEPLAY)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                stateChanged = true;
-                state = GameState.PAUSE;
-            }
+            stateChanged = true;
+            state = GameState.PAUSE;
         }
         else if (state == GameState.PAUSE)
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) 
-            {
-                stateChanged = true;
-                state = GameState.GAMEPLAY;
-            }
+            stateChanged = true;
+            state = GameState.GAMEPLAY;
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+  
     }
 
     private void LateUpdate()

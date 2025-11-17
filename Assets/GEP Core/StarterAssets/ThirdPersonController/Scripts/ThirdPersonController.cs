@@ -348,6 +348,16 @@ namespace StarterAssets
             }
         }
 
+        public GameManager gameManager;
+
+        private void OnPause(InputValue value) 
+        {
+            if (value.isPressed) 
+            {
+                gameManager.OnPause();
+            }
+        }
+
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
