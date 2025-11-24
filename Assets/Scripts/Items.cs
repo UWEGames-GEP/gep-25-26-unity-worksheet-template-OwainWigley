@@ -9,10 +9,8 @@ public class Items : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             Inventory inventory = collider.GetComponent<Inventory>();
-            inventory.AddItem(gameObject.name);
-            //play sound component attached to object
-            GetComponent<Collider>().enabled = false;
-            Destroy(gameObject);
+            inventory.AddItem(gameObject);
+            gameObject.SetActive(false);
             
         }
     }

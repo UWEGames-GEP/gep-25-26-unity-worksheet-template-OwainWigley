@@ -355,6 +355,23 @@ namespace StarterAssets
             if (value.isPressed) 
             {
                 gameManager.OnPause();
+                if(LockCameraPosition == false) 
+                {
+                    LockCameraPosition = true;
+                }
+                else 
+                {
+                    LockCameraPosition = false;
+                }
+            }
+        }
+
+        private void OnRemoveItem(InputValue value) 
+        {
+            if (value.isPressed)
+            {
+                Debug.Log("Remove Item");
+                GetComponent<Inventory>().RemoveItem();
             }
         }
 
