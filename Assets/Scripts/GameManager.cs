@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public enum GameState { GAMEPLAY, PAUSE }
     public GameState state;
     public bool stateChanged = false;
+    public GameObject InventoryUI;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,11 +21,15 @@ public class GameManager : MonoBehaviour
         {
             stateChanged = true;
             state = GameState.PAUSE;
+            InventoryUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else if (state == GameState.PAUSE)
         {
             stateChanged = true;
             state = GameState.GAMEPLAY;
+            InventoryUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
