@@ -23,6 +23,6 @@ public class Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 25 * Time.deltaTime, 0, Space.Self);
+        //transform.Rotate(0, 25 * Time.deltaTime, 0, Space.Self);
     }
 }

@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
         newPosition += new Vector3(0, 1, 0);
 
         Quaternion currentRotation = transform.rotation;
-        Quaternion newRotation = currentRotation * Quaternion.Euler(0, 0, 180);
+        Quaternion newRotation = currentRotation * Quaternion.Euler(0, 0, 0);
 
         GameObject newItem = Instantiate(item, newPosition, newRotation, objectsTransform);
         newItem.SetActive(true);
