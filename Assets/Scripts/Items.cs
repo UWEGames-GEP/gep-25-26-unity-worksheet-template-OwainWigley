@@ -1,28 +1,37 @@
 using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Items : MonoBehaviour
 {
+    private Inventory inventory;
+    private bool canInteract = false;
+
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Player"))
         {
-            Inventory inventory = collider.GetComponent<Inventory>();
-            inventory.AddItem(gameObject);
-            gameObject.SetActive(false);
-            
+            inventory = collider.GetComponent<Inventory>();
+            canInteract = true;
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
 
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.CompareTag("Player")) 
+        {
+            canInteract = false;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void pickUpObject() 
     {
-        //transform.Rotate(0, 25 * Time.deltaTime, 0, Space.Self);
+        if (canInteract)
+        {
+            inventory.AddItem(gameObject);
+            gameObject.SetActive(false);
+            canInteract = false;
+        }
     }
 }

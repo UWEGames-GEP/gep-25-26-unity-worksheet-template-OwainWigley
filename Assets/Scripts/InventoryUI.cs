@@ -15,8 +15,6 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshInventory() 
     {
-        Debug.Log("Refreshing Inventory UI");
-
         foreach (GameObject uiButton in inventoryUIButtons) 
         {
             uiButton.SetActive(false);

@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -366,11 +367,25 @@ namespace StarterAssets
             }
         }
 
+        public GameObject objects;
+        private Items items;
+
+        private void OnPickUpItem(InputValue value) 
+        {
+            if (value.isPressed) 
+            {
+                for (int i = 0; i < objects.transform.childCount; i++)
+                {
+                    items = objects.transform.GetChild(i).GetComponent<Items>();
+                    items.pickUpObject();
+                }
+            }
+        }
+
         private void OnRemoveItem(InputValue value) 
         {
             if (value.isPressed)
             {
-                Debug.Log("Remove Item");
                 GetComponent<Inventory>().RemoveItem();
             }
         }
