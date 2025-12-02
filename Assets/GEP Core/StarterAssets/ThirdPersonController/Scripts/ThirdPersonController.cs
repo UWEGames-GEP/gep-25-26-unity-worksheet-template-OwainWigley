@@ -370,14 +370,45 @@ namespace StarterAssets
         public GameObject objects;
         private Items items;
 
-        private void OnPickUpItem(InputValue value) 
+        private void OnPickUpItem(InputValue value)
         {
-            if (value.isPressed) 
+            if (!value.isPressed) return;
+            if (objects == null || objects.transform.childCount == 0) return;
+
+            if (gameManager.promptsActive > 1)
+            {
+                float minSqrDist = float.MaxValue;
+                int closestIndex = -1;
+
+                for (int i = 0; i < objects.transform.childCount; i++)
+                {
+                    Transform child = objects.transform.GetChild(i);
+                    if (child == null) continue;
+
+                    Items childItem = child.GetComponent<Items>();
+                    if (childItem == null || !childItem.CanInteract) continue;
+
+                    float sqrDist = (child.position - transform.position).sqrMagnitude;
+                    if (sqrDist < minSqrDist)
+                    {
+                        minSqrDist = sqrDist;
+                        closestIndex = i;
+                    }
+                }
+
+                if (closestIndex != -1)
+                {
+                    items = objects.transform.GetChild(closestIndex).GetComponent<Items>();
+                    items?.pickUpObject();
+                }
+            }
+            else
             {
                 for (int i = 0; i < objects.transform.childCount; i++)
                 {
-                    items = objects.transform.GetChild(i).GetComponent<Items>();
-                    items.pickUpObject();
+                    Items childItem = objects.transform.GetChild(i).GetComponent<Items>();
+                    if (childItem == null || !childItem.CanInteract) continue;
+                    childItem.pickUpObject();
                 }
             }
         }

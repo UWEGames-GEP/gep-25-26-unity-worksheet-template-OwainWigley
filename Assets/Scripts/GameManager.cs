@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +6,7 @@ public class GameManager : MonoBehaviour
     public GameState state;
     public bool stateChanged = false;
     public GameObject InventoryUI;
+    public int promptsActive = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
+
     }
 
     private void LateUpdate()

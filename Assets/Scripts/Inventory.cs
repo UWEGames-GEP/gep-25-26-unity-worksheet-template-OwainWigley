@@ -1,8 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using UnityEditor.Search;
-using Unity.VisualScripting;
 
 public class Inventory : MonoBehaviour
 {
@@ -20,9 +17,7 @@ public class Inventory : MonoBehaviour
         GameObject item = items[0];
 
         Vector3 currentPosition = transform.position;
-        Vector3 forward = transform.forward;
-
-        Vector3 newPosition = currentPosition + forward;
+        Vector3 newPosition = currentPosition;
         newPosition += new Vector3(0, 1, 0);
 
         Quaternion currentRotation = transform.rotation;

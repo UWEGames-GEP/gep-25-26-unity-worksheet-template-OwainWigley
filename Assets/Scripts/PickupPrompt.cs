@@ -1,7 +1,5 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PickupPrompt : MonoBehaviour
@@ -9,8 +7,6 @@ public class PickupPrompt : MonoBehaviour
     private TMP_Text text;
     private PlayerInput playerInput;
     private GameObject player;
-
-    public static event Action<InputDevice, InputDeviceChange> onDeviceChange;
 
     void Start()
     {
@@ -20,7 +16,7 @@ public class PickupPrompt : MonoBehaviour
 
         if (playerInput.currentControlScheme == "KeyboardMouse") 
         {
-            text.text = transform.parent.name + "\n" + "[F] Pick Up";
+            text.text = transform.parent.name + "\n" + "[E] Pick Up";
         }
         else if (playerInput.currentControlScheme == "Gamepad") 
         {
@@ -37,18 +33,13 @@ public class PickupPrompt : MonoBehaviour
 
     void Update()
     {
-        if (onDeviceChange != null)
+        if (playerInput.currentControlScheme == "KeyboardMouse")
         {
-            Debug.Log(playerInput.currentControlScheme);
-
-            if (playerInput.currentControlScheme == "KeyboardMouse")
-            {
-                text.text = transform.parent.name + "\n" + "[F] Pick Up";
-            }
-            else if (playerInput.currentControlScheme == "Gamepad")
-            {
-                text.text = transform.parent.name + "\n" + "[X] Pick Up";
-            }
+           text.text = transform.parent.name + "\n" + "[E] Pick Up";
+        }
+        else if (playerInput.currentControlScheme == "Gamepad")
+        {
+           text.text = transform.parent.name + "\n" + "[X] Pick Up";
         }
     }
 }

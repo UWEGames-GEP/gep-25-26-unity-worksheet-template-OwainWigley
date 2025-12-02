@@ -1,17 +1,33 @@
-using System.Xml.Linq;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public class Items : MonoBehaviour
 {
+    public int objectSize;
+    public Image inventoryIcon;
     private Inventory inventory;
     private bool canInteract = false;
+    GameManager gameManager;
+
+    public bool CanInteract => canInteract;
+
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
+    void Update()
+    {
+        gameObject.transform.Rotate(0, 50 * Time.deltaTime, 0);
+    }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Player"))
         {
+            gameManager.promptsActive += 1;
             inventory = collider.GetComponent<Inventory>();
             canInteract = true;
         }
@@ -21,16 +37,18 @@ public class Items : MonoBehaviour
     {
         if (collider.CompareTag("Player")) 
         {
+            gameManager.promptsActive -= 1;
             canInteract = false;
         }
     }
 
-    public void pickUpObject() 
+    public void pickUpObject()
     {
-        if (canInteract)
+        if (canInteract && (gameManager.state == GameManager.GameState.GAMEPLAY))
         {
             inventory.AddItem(gameObject);
             gameObject.SetActive(false);
+            gameManager.promptsActive -= 1;
             canInteract = false;
         }
     }
