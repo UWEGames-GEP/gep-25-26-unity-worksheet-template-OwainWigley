@@ -367,12 +367,19 @@ namespace StarterAssets
             }
         }
 
+        public GameObject inventoryFullMessage;
         public GameObject objects;
         private Items items;
 
         private void OnPickUpItem(InputValue value)
         {
             if (!value.isPressed) return;
+            if (gameManager.state == GameManager.GameState.PAUSE) return;
+            if (gameObject.GetComponent<Inventory>().items.Count >= gameObject.GetComponent<Inventory>().inventoryCapacity) 
+            {
+                inventoryFullMessage.SetActive(true);
+                return;
+            }
             if (objects == null || objects.transform.childCount == 0) return;
 
             if (gameManager.promptsActive > 1)

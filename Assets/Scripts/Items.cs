@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class Items : MonoBehaviour
 {
-    public int objectSize;
-    public Image inventoryIcon;
+    public Sprite inventoryIcon;
+    public GridInventoryUI ui;
+    //
     private Inventory inventory;
     private bool canInteract = false;
     GameManager gameManager;
@@ -44,12 +43,14 @@ public class Items : MonoBehaviour
 
     public void pickUpObject()
     {
-        if (canInteract && (gameManager.state == GameManager.GameState.GAMEPLAY))
+        if (canInteract)
         {
             inventory.AddItem(gameObject);
             gameObject.SetActive(false);
             gameManager.promptsActive -= 1;
             canInteract = false;
+            //
+            ui.AddToUI(gameObject);
         }
     }
 }
