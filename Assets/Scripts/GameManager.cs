@@ -8,12 +8,14 @@ public class GameManager : MonoBehaviour
     public GameObject InventoryUI;
     public int promptsActive = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // sets state to gameplay on game start
     void Start()
     {
         state = GameState.GAMEPLAY;
     }
 
+    // if in gameplay, sets the state changed to true for late update, sets state to pause, activates the pause ui, unlocks the cursor for menu navigation
+    // if in pause, sets the state changed to true for late update, sets state to gameplay, deactivates the pause ui, locks the cursor
     public void OnPause() 
     {
         if (state == GameState.GAMEPLAY)
@@ -32,12 +34,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    // if state changed is true, sets it to false then, sets timescale to 1 if in gameplay and 0 if in pause
     private void LateUpdate()
     {
         if (stateChanged)

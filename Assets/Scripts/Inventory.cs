@@ -10,15 +10,18 @@ public class Inventory : MonoBehaviour
     GameManager gameManager;
     Transform objectsTransform;
 
+    // adds item to list of items
     public void AddItem(GameObject itemName) 
     {
         items.Add(itemName);
     }
 
+    // removes a specific game object from inventory
     public void RemoveItem(GameObject itemName)
     {
         GameObject item = itemName;
 
+        // instantiates object in scene at player's current position after removing from inventory
         Vector3 currentPosition = transform.position;
         Vector3 newPosition = currentPosition;
         newPosition += new Vector3(0, 1, 0);
@@ -30,20 +33,24 @@ public class Inventory : MonoBehaviour
         newItem.SetActive(true);
         newItem.name = item.name;
 
+        // removes item from list
         items.Remove(item);
+
+        // clears the inventory ui button which contained the item
         for (int i = 0; i < inventoryUI.inventoryUIButtons.Count; i++)
         {
             InventoryUIButton uiButton = inventoryUI.inventoryUIButtons[i].GetComponent<InventoryUIButton>();
             if (uiButton.itemInSlot == item)
             {
                 uiButton.ClearButton();
-                //Invoke(nameof(uiButton.ClearButton), 0.1f);
             }
         }
+
+        // destroys previous instance of item from scene
         Destroy(item.gameObject);
     }
 
-    // Q press because call requries parameter so uses the first item in the list
+    // override with no parameters makes the removed item the first item in the list
     public void RemoveItem() 
     {
         if ((gameManager.state == GameManager.GameState.GAMEPLAY) && (items.Count > 0))
@@ -53,16 +60,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // remove this function
-    // ui button press because call requires parameter so uses the index to remove specific item
-    public void RemoveItem(int i) 
-    {
-        if (i < items.Count) 
-        {
-            RemoveItem(items[i]);
-        }
-    }
-
+    // finds game manager and interactable objects in scene
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
