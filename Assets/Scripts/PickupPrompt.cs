@@ -10,6 +10,7 @@ public class PickupPrompt : MonoBehaviour
 
     void Start()
     {
+        gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         playerInput = player.GetComponent<PlayerInput>();
         text = GetComponent<TMP_Text>();

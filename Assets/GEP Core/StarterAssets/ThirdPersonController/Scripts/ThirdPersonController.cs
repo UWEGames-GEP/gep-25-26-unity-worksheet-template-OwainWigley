@@ -282,7 +282,7 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
-            if (Grounded)
+            if (Grounded && gameManager.state == GameManager.GameState.GAMEPLAY)
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
