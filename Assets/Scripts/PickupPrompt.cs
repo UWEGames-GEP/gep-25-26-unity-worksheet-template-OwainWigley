@@ -7,6 +7,8 @@ public class PickupPrompt : MonoBehaviour
     private TMP_Text text;
     private PlayerInput playerInput;
     private GameObject player;
+    public string gamePadPrompt;
+    public string keyboardPrompt;
 
     void Start()
     {
@@ -21,11 +23,11 @@ public class PickupPrompt : MonoBehaviour
         // sets the correct prompt text for keyboard or controller
         if (playerInput.currentControlScheme == "KeyboardMouse") 
         {
-            text.text = transform.parent.name + "\n" + "[E] Pick Up";
+            text.text = transform.parent.name + "\n" + keyboardPrompt + " Pick Up";
         }
         else if (playerInput.currentControlScheme == "Gamepad") 
         {
-            text.text = transform.parent.name + "\n" + "[X] Pick Up";
+            text.text = transform.parent.name + "\n" + gamePadPrompt + " Pick Up";
         }
 
     }
@@ -42,11 +44,11 @@ public class PickupPrompt : MonoBehaviour
         // updates the prompt text if player changes input device
         if (playerInput.currentControlScheme == "KeyboardMouse")
         {
-           text.text = transform.parent.name + "\n" + "[E] Pick Up";
+           text.text = transform.parent.name + "\n" + keyboardPrompt + " Pick Up";
         }
         else if (playerInput.currentControlScheme == "Gamepad")
         {
-           text.text = transform.parent.name + "\n" + "[X] Pick Up";
+           text.text = transform.parent.name + "\n" + gamePadPrompt + " Pick Up";
         }
     }
 }

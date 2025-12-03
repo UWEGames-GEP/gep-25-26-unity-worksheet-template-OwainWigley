@@ -4,6 +4,7 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     public Sprite inventoryIcon;
+    public int inventorySlot;
     private Inventory inventory;
     private bool canInteract = false;
     GameManager gameManager;

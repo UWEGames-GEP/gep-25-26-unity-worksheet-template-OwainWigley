@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0057b9f528dab42abaa8441356ce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePadPrompt: '[X]'
+  keyboardPrompt: '[E]'
 --- !u!1 &1706602394401178829
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 0}
-  ui: {fileID: 0}
+  inventorySlot: 0
 --- !u!54 &-3045914187364740946
 Rigidbody:
   m_ObjectHideFlags: 0

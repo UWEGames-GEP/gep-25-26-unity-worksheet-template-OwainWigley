@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryIcon: {fileID: 21300000, guid: 0a8a189c566dd8e43a3a8df832b52b9d, type: 3}
-  ui: {fileID: 0}
+  inventorySlot: 0
 --- !u!135 &5134661259719659826
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -496,3 +496,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0057b9f528dab42abaa8441356ce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePadPrompt: '[X]'
+  keyboardPrompt: '[E]'

@@ -351,6 +351,7 @@ namespace StarterAssets
 
         public GameManager gameManager;
 
+        // calls the pause function in game manager and locks/unlocks camera position when button pressed
         private void OnPause(InputValue value) 
         {
             if (value.isPressed) 
@@ -371,8 +372,10 @@ namespace StarterAssets
         public GameObject objects;
         private Items items;
 
+        // calls pick up object function from items when button pressed
         private void OnPickUpItem(InputValue value)
         {
+            // returns if button not pressed, game is paused, inventory is full, or no items in scene
             if (!value.isPressed) return;
             if (gameManager.state == GameManager.GameState.PAUSE) return;
             if (gameObject.GetComponent<Inventory>().items.Count >= gameObject.GetComponent<Inventory>().inventoryCapacity) 
@@ -382,6 +385,7 @@ namespace StarterAssets
             }
             if (objects == null || objects.transform.childCount == 0) return;
 
+            // picks up closest item if multiple items in range, otherwise picks up the only item
             if (gameManager.promptsActive > 1)
             {
                 float minSqrDist = float.MaxValue;
@@ -420,6 +424,7 @@ namespace StarterAssets
             }
         }
 
+        // removes item from inventory when button pressed
         private void OnRemoveItem(InputValue value) 
         {
             if (value.isPressed)

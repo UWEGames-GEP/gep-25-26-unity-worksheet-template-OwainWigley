@@ -37,14 +37,7 @@ public class Inventory : MonoBehaviour
         items.Remove(item);
 
         // clears the inventory ui button which contained the item
-        for (int i = 0; i < inventoryUI.inventoryUIButtons.Count; i++)
-        {
-            InventoryUIButton uiButton = inventoryUI.inventoryUIButtons[i].GetComponent<InventoryUIButton>();
-            if (uiButton.itemInSlot == item)
-            {
-                uiButton.ClearButton();
-            }
-        }
+        inventoryUI.inventoryUIButtons[item.GetComponent<Items>().inventorySlot].GetComponent<InventoryUIButton>().ClearButton();
 
         // destroys previous instance of item from scene
         Destroy(item.gameObject);

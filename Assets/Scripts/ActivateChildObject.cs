@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class ActivateChildObject : MonoBehaviour
 {
+    public int childIndex;
+
     // activates child of game object on entering trigger
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Player")) 
         {
-            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(childIndex).gameObject.SetActive(true);
         }
     }
 
@@ -16,7 +18,7 @@ public class ActivateChildObject : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(childIndex).gameObject.SetActive(false);
         }
     }
 }
