@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -350,21 +349,56 @@ namespace StarterAssets
         }
 
         public GameManager gameManager;
+        public bool options = false;
+        public bool menu = false;
 
-        // calls the pause function in game manager and locks/unlocks camera position when button pressed
+        // if button pressed and menu is not open, calls the pause function with options parameter in game manager and locks/unlocks camera position when button pressed
         private void OnPause(InputValue value) 
         {
-            if (value.isPressed) 
+            if (value.isPressed && menu == false) 
             {
-                gameManager.OnPause();
+                gameManager.OnPause(GameManager.PauseState.OPTIONS);
                 if(LockCameraPosition == false) 
                 {
                     LockCameraPosition = true;
+                    options = true;
                 }
                 else 
                 {
                     LockCameraPosition = false;
+                    options = false;
                 }
+            }
+        }
+
+        // if button pressed and options is not open, calls the pause function with menu parameter in game manager and locks/unlocks camera position when button pressed
+        private void OnMenu(InputValue value) 
+        {
+            if (value.isPressed && options == false) 
+            {
+                gameManager.OnPause(GameManager.PauseState.MENU);
+                if (LockCameraPosition == false) 
+                {
+                    LockCameraPosition = true;
+                    menu = true;
+                }
+                else 
+                {
+                    LockCameraPosition = false;
+                    menu = false;
+                }
+            }
+        }
+
+        // if button pressed, calls the back function, which closes both menu and options, in game manager and unlocks camera position
+        private void OnBack(InputValue value) 
+        {
+            if (value.isPressed)
+            {
+                gameManager.OnBack();
+                LockCameraPosition = false;
+                menu = false;
+                options = false;
             }
         }
 
@@ -431,6 +465,13 @@ namespace StarterAssets
             {
                 GetComponent<Inventory>().RemoveItem();
             }
+        }
+
+        // if control scheme changes and a pickup prompt is active, sends message to pickup prompt to change control prompt
+        private void OnControlsChanged() 
+        {
+            if (objects.GetComponentInChildren<PickupPrompt>() == null) return;
+            objects.GetComponentInChildren<PickupPrompt>().SendMessage("ChangeControlPrompt");
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

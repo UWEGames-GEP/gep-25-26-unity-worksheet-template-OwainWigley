@@ -9,6 +9,7 @@ public class PickupPrompt : MonoBehaviour
     private GameObject player;
     public string gamePadPrompt;
     public string keyboardPrompt;
+    private bool startDelay = true;
 
     void Start()
     {
@@ -19,19 +20,21 @@ public class PickupPrompt : MonoBehaviour
         playerInput = player.GetComponent<PlayerInput>();
         // sets text to game object's text component
         text = GetComponent<TMP_Text>();
-
-        // sets the correct prompt text for keyboard or controller
-        if (playerInput.currentControlScheme == "KeyboardMouse") 
-        {
-            text.text = transform.parent.name + "\n" + keyboardPrompt + " Pick Up";
-        }
-        else if (playerInput.currentControlScheme == "Gamepad") 
-        {
-            text.text = transform.parent.name + "\n" + gamePadPrompt + " Pick Up";
-        }
-
+        // invokes delay so input system doesn't cause null reference error on start
+        Invoke("StartDelay", 0.1f);
     }
 
+    private void OnEnable()
+    {
+        // sets prompt according to control scheme when object is enabled
+        ChangeControlPrompt();
+    }
+
+    // sets start delay to false
+    void StartDelay() 
+    {
+        startDelay = false;
+    }
 
     void LateUpdate()
     {
@@ -39,16 +42,20 @@ public class PickupPrompt : MonoBehaviour
         transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
 
-    void Update()
+    void ChangeControlPrompt() 
     {
-        // updates the prompt text if player changes input device
+        if (startDelay) 
+        {
+            Invoke("ChangeControlPrompt", 0.1f);
+            return;
+        }
         if (playerInput.currentControlScheme == "KeyboardMouse")
         {
-           text.text = transform.parent.name + "\n" + keyboardPrompt + " Pick Up";
+            text.text = transform.parent.name + "\n" + keyboardPrompt + " Pick Up";
         }
         else if (playerInput.currentControlScheme == "Gamepad")
         {
-           text.text = transform.parent.name + "\n" + gamePadPrompt + " Pick Up";
+            text.text = transform.parent.name + "\n" + gamePadPrompt + " Pick Up";
         }
     }
 }

@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
     public GameState state;
     public bool stateChanged = false;
     public GameObject InventoryUI;
+    public GameObject OptionsUI;
     public int promptsActive = 0;
+    public enum PauseState { OPTIONS, MENU }
 
     // sets state to gameplay on game start
     void Start()
@@ -14,22 +16,51 @@ public class GameManager : MonoBehaviour
         state = GameState.GAMEPLAY;
     }
 
-    // if in gameplay, sets the state changed to true for late update, sets state to pause, activates the pause ui, unlocks the cursor for menu navigation
-    // if in pause, sets the state changed to true for late update, sets state to gameplay, deactivates the pause ui, locks the cursor
-    public void OnPause() 
+    // if in gameplay, activates the inventory or options ui depending on the pause state, sets the state changed to true for late update, sets state to pause, unlocks the cursor for menu navigation
+    // if in pause, deactivates the inventory or options ui depending on the pause state, sets sets the state changed to true for late update, sets state to gameplay, locks the cursor
+    public void OnPause(PauseState pauseState)
     {
         if (state == GameState.GAMEPLAY)
         {
+            if (pauseState == PauseState.MENU)
+            {
+                InventoryUI.SetActive(true);
+            }
+            else 
+            {
+                OptionsUI.SetActive(true);
+            }
             stateChanged = true;
             state = GameState.PAUSE;
-            InventoryUI.SetActive(true);
+            //InventoryUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
         else if (state == GameState.PAUSE)
         {
+            if (pauseState == PauseState.MENU)
+            {
+                InventoryUI.SetActive(false);
+            }
+            else
+            {
+                OptionsUI.SetActive(false);
+            }
+            stateChanged = true;
+            state = GameState.GAMEPLAY;
+            //InventoryUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    // if in pause, sets the state changed to true for late update, sets state to gameplay, deactivates the options and inventory ui, locks the cursor
+    public void OnBack() 
+    {
+        if (state == GameState.PAUSE) 
+        {
             stateChanged = true;
             state = GameState.GAMEPLAY;
             InventoryUI.SetActive(false);
+            OptionsUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
