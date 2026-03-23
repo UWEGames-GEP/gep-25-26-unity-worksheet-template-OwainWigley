@@ -447,7 +447,7 @@ namespace StarterAssets
                     items?.pickUpObject();
                 }
             }
-            else
+            else if (gameManager.promptsActive == 1)
             {
                 for (int i = 0; i < objects.transform.childCount; i++)
                 {

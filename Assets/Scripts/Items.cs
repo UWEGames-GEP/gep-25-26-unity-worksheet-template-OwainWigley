@@ -4,7 +4,8 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     public Sprite inventoryIcon;
-    public int inventorySlot;
+    [HideInInspector] public int inventorySlot;
+    public float rotationSpeed = 50.0f;
     private Inventory inventory;
     private bool canInteract = false;
     GameManager gameManager;
@@ -20,7 +21,7 @@ public class Items : MonoBehaviour
     // rotates object every frame
     void Update()
     {
-        gameObject.transform.Rotate(0, 50 * Time.deltaTime, 0);
+        gameObject.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
     }
 
     // if player enters trigger, increases the number of prompts active by 1, sets inventory to the player's inventory, sets can interact to true allowing player to be able to pick up item

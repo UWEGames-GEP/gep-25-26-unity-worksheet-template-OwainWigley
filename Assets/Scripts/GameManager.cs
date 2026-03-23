@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
             }
             stateChanged = true;
             state = GameState.PAUSE;
-            //InventoryUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
         else if (state == GameState.PAUSE)
@@ -47,7 +46,6 @@ public class GameManager : MonoBehaviour
             }
             stateChanged = true;
             state = GameState.GAMEPLAY;
-            //InventoryUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
