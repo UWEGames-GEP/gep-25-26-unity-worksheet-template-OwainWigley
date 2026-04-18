@@ -5,7 +5,8 @@ public class Items : MonoBehaviour
 {
     public Sprite inventoryIcon;
     [HideInInspector] public int inventorySlot;
-    public float rotationSpeed = 50.0f;
+    [Range(0.0f, 1000.0f)] public float rotationSpeed = 50.0f;
+    [Range(0.0f, 1.0f)] public float meshScale = 1.0f;
     private Inventory inventory;
     private bool canInteract = false;
     GameManager gameManager;
@@ -16,6 +17,13 @@ public class Items : MonoBehaviour
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        if (transform.localScale == new Vector3(0.75f, 0.75f, 0.75f) * meshScale) return;
+        transform.localScale *= meshScale;
+        GetComponent<CapsuleCollider>().radius /= meshScale;
+        GetComponent<CapsuleCollider>().height /= meshScale;
+        GetComponent<BoxCollider>().size /= meshScale;
+        transform.GetChild(0).localScale /= meshScale;
+        transform.GetChild(0).localPosition /= meshScale;
     }
 
     // rotates object every frame

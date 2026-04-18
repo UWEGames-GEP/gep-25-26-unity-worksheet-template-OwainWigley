@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-    public int inventoryCapacity = 16;
+    [HideInInspector] public int inventoryCapacity = 16;
     public List<GameObject> items = new List<GameObject>();
     public GridInventoryUI inventoryUI;
 

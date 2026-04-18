@@ -8,12 +8,6 @@ public class GridInventoryUI : MonoBehaviour
     public GameObject initialButtonSelected;
     public GameObject eventSystem;
 
-    // sets inventory capacity to the number of buttons in the inventory ui
-    private void Start()
-    {
-        inventory.inventoryCapacity = inventoryUIButtons.Count;
-    }
-
     // when the inventory ui is enabled, set the button selected to the initialButtonSelected gameobject
     void OnEnable()
     {

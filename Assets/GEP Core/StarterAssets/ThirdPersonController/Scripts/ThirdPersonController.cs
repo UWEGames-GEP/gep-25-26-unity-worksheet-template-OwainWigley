@@ -412,16 +412,16 @@ namespace StarterAssets
             // returns if button not pressed, game is paused, inventory is full, or no items in scene
             if (!value.isPressed) return;
             if (gameManager.state == GameManager.GameState.PAUSE) return;
-            if (gameObject.GetComponent<Inventory>().items.Count >= gameObject.GetComponent<Inventory>().inventoryCapacity) 
-            {
-                inventoryFullMessage.SetActive(true);
-                return;
-            }
             if (objects == null || objects.transform.childCount == 0) return;
 
             // picks up closest item if multiple items in range, otherwise picks up the only item
             if (gameManager.promptsActive > 1)
             {
+                if (gameObject.GetComponent<Inventory>().items.Count >= gameObject.GetComponent<Inventory>().inventoryCapacity)
+                {
+                    inventoryFullMessage.SetActive(true);
+                    return;
+                }
                 float minSqrDist = float.MaxValue;
                 int closestIndex = -1;
 
@@ -449,6 +449,11 @@ namespace StarterAssets
             }
             else if (gameManager.promptsActive == 1)
             {
+                if (gameObject.GetComponent<Inventory>().items.Count >= gameObject.GetComponent<Inventory>().inventoryCapacity)
+                {
+                    inventoryFullMessage.SetActive(true);
+                    return;
+                }
                 for (int i = 0; i < objects.transform.childCount; i++)
                 {
                     Items childItem = objects.transform.GetChild(i).GetComponent<Items>();

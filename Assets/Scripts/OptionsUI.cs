@@ -28,6 +28,7 @@ public class OptionsUI : MonoBehaviour
     {
         if (i == 0)
         {
+            gameObject.GetComponent<AudioSource>().Play();
             gameManager.OnBack();
             ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
             controller.LockCameraPosition = false;
